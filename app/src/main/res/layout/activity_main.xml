@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    tools:layout_editor_absoluteY="50dp">
+
+    <TextView
+        android:id="@+id/location"
+        android:layout_width="0dp"
+        android:layout_height="29dp"
+        android:layout_marginBottom="13dp"
+        android:layout_marginEnd="49dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/temperature"
+        app:layout_constraintEnd_toStartOf="@+id/button_refresh"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/temperature"
+        android:layout_width="121dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="22dp"
+        android:layout_marginStart="16dp"
+        android:drawableLeft="@mipmap/ic_temperature"
+        android:drawableRight="@mipmap/ic_celcius"
+        android:text="29 C"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_refresh" />
+
+    <Button
+        android:id="@+id/button_refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="35dp"
+        android:layout_marginTop="39dp"
+        android:background="#3F51B5"
+        android:bottomLeftRadius="6dp"
+        android:bottomRightRadius="6dp"
+        android:text="Refresh"
+        android:textColor="#FFFFFF"
+        android:topLeftRadius="6dp"
+        android:topRightRadius="6dp"
+        app:layout_constraintBottom_toTopOf="@+id/temperature"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/location"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginStart="60dp"
+        app:layout_constraintBottom_toTopOf="@+id/cloudiness"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/temperature" />
+
+    <TextView
+        android:id="@+id/wind_speed"
+        android:layout_width="0dp"
+        android:layout_height="26dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginStart="30dp"
+        android:drawableLeft="@mipmap/ic_wind"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBaseline_toBaselineOf="@+id/humidity"
+        app:layout_constraintEnd_toStartOf="@+id/humidity"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/humidity"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="126dp"
+        android:layout_marginEnd="25dp"
+        android:drawableLeft="@mipmap/ic_humidity"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/credit"
+        app:layout_constraintEnd_toStartOf="@+id/cloudiness"
+        app:layout_constraintStart_toEndOf="@+id/wind_speed"
+        app:layout_constraintTop_toBottomOf="@+id/cloudiness" />
+
+    <TextView
+        android:id="@+id/cloudiness"
+        android:layout_width="93dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="197dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginTop="242dp"
+        android:drawableLeft="@mipmap/ic_wind"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/credit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/credit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="13dp"
+        android:text="CREDIT Climacons By @adamwhitcroft"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cloudiness" />
+
+</android.support.constraint.ConstraintLayout>
