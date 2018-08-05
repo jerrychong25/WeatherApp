@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Set Background Colour To Light Blue
         View root = this.getWindow().getDecorView();
-        root.setBackgroundColor(Color.BLUE);
+        root.setBackgroundColor(0xFF448AFF);              // Format: α (FF) + Blue 50 A200 colour (448AFF) = FF448AFF
 
 //        // Get latest weather data during initialization
 //        WeatherDataRetrival weatherDataRetrival = new WeatherDataRetrival();
