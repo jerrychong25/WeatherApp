@@ -52,14 +52,15 @@ public class MainActivity extends AppCompatActivity {
         btnRefresh = (Button) findViewById(R.id.button_refresh);
         ivIcon = (ImageView) findViewById(R.id.icon);
 
-//        // Set Background Colour To Light Blue
-//        View root = this.getWindow().getDecorView();
-//        root.setBackgroundColor(Color.BLUE);
+        // Set Background Colour To Light Blue
+        View root = this.getWindow().getDecorView();
+        root.setBackgroundColor(Color.BLUE);
 
-        // Test Method 1 - Original Connection
+        // Get latest weather data during initialization
         WeatherDataRetrival weatherDataRetrival = new WeatherDataRetrival();
         weatherDataRetrival.execute();
 
+        // Get latest weather data if Refresh button is clicked
         btnRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,10 +96,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-//    interface ApiProvider {
-//        @GET("/data/2.5/weather?APPID=82445b6c96b99bc3ffb78a4c0e17fca5&mode=json&id=1735161")
-//        Call<String> getWeatherData();
-//    }
+    interface ApiProvider {
+        @GET("/data/2.5/weather?APPID=82445b6c96b99bc3ffb78a4c0e17fca5&mode=json&id=1735161")
+        Call<String> getWeatherData();
+    }
 
     private class WeatherDataRetrival extends AsyncTask<Void, Void, String> {
 
@@ -220,17 +221,17 @@ public class MainActivity extends AppCompatActivity {
 
                     final JSONObject mainJSON = weatherJSON.getJSONObject("main");
 
-                    tvTemperature.setText(String.valueOf(mainJSON.getDouble("temp")));
+                    tvTemperature.setText(String.valueOf(Math.round(mainJSON.getDouble("temp")-273)));
                     Log.d("Data", "tvTemperature: " + String.valueOf(mainJSON.getDouble("temp")));
 
                     tvHumidity.setText(String.valueOf(mainJSON.getInt("humidity")) + "%");
                     Log.d("Data", "tvHumidity: " + String.valueOf(mainJSON.getInt("humidity")) + "%");
 
-                    final JSONArray weatherJSONArray = weatherJSON.getJSONArray("weather");
-                    if(weatherJSONArray.length()>0) {
-                        int code = weatherJSONArray.getJSONObject(0).getInt("id");
-                        ivIcon.setImageResource(getIcon(code));
-                    }
+//                    final JSONArray weatherJSONArray = weatherJSON.getJSONArray("weather");
+//                    if(weatherJSONArray.length()>0) {
+//                        int code = weatherJSONArray.getJSONObject(0).getInt("id");
+//                        ivIcon.setImageResource(getIcon(code));
+//                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -364,32 +365,42 @@ public class MainActivity extends AppCompatActivity {
 
     private void parseResult (String result) {
 
-        tvLocation.setText(result);
+        if(result == null) {
+            Log.d("Data", "result is null!");
+        }
 
-//        if(result != null) {
-//            try {
-//                final JSONObject weatherJSON = new JSONObject(result);
-//
-//                tvLocation.setText(result);
-//
-////                tvLocation.setText(weatherJSON.getString("name") + "," + weatherJSON.getJSONObject("sys").getString("country"));
-//                tvWindSpeed.setText(String.valueOf(weatherJSON.getJSONObject("wind").getDouble("speed")) + " mps");
-//                tvCloudiness.setText(String.valueOf(weatherJSON.getJSONObject("clouds").getInt("all")) + "%");
-//
-//                final JSONObject mainJSON = weatherJSON.getJSONObject("main");
-//
-//                tvTemperature.setText(String.valueOf(mainJSON.getDouble("temp")));
-//                tvHumidity.setText(String.valueOf(mainJSON.getInt("humidity")) + "%");
-//
-//                final JSONArray weatherJSONArray = weatherJSON.getJSONArray("weather");
-//                if(weatherJSONArray.length()>0) {
-//                    int code = weatherJSONArray.getJSONObject(0).getInt("id");
-//                    ivIcon.setImageResource(getIcon(code));
-//                }
-//
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-//        }
+        else if(result != null) {
+            Log.d("Data", "result not null!");
+
+            try {
+                final JSONObject weatherJSON = new JSONObject(result);
+
+                tvLocation.setText(weatherJSON.getString("name") + "," + weatherJSON.getJSONObject("sys").getString("country"));
+                Log.d("Data", "tvLocation: " + weatherJSON.getString("name") + "," + weatherJSON.getJSONObject("sys").getString("country"));
+
+                tvWindSpeed.setText(String.valueOf(weatherJSON.getJSONObject("wind").getDouble("speed")) + " mps");
+                Log.d("Data", "tvWindSpeed: " + String.valueOf(weatherJSON.getJSONObject("wind").getDouble("speed")) + " mps");
+
+                tvCloudiness.setText(String.valueOf(weatherJSON.getJSONObject("clouds").getInt("all")) + "%");
+                Log.d("Data", "tvCloudiness: " + String.valueOf(weatherJSON.getJSONObject("clouds").getInt("all")) + "%");
+
+                final JSONObject mainJSON = weatherJSON.getJSONObject("main");
+
+                tvTemperature.setText(String.valueOf(Math.round(mainJSON.getDouble("temp")-273)));
+                Log.d("Data", "tvTemperature: " + String.valueOf(mainJSON.getDouble("temp")));
+
+                tvHumidity.setText(String.valueOf(mainJSON.getInt("humidity")) + "%");
+                Log.d("Data", "tvHumidity: " + String.valueOf(mainJSON.getInt("humidity")) + "%");
+
+                final JSONArray weatherJSONArray = weatherJSON.getJSONArray("weather");
+                if(weatherJSONArray.length()>0) {
+                    int code = weatherJSONArray.getJSONObject(0).getInt("id");
+                    ivIcon.setImageResource(getIcon(code));
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
