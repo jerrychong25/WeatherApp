@@ -56,9 +56,9 @@ public class MainActivity extends AppCompatActivity {
         View root = this.getWindow().getDecorView();
         root.setBackgroundColor(Color.BLUE);
 
-        // Get latest weather data during initialization
-        WeatherDataRetrival weatherDataRetrival = new WeatherDataRetrival();
-        weatherDataRetrival.execute();
+//        // Get latest weather data during initialization
+//        WeatherDataRetrival weatherDataRetrival = new WeatherDataRetrival();
+//        weatherDataRetrival.execute();
 
         // Get latest weather data if Refresh button is clicked
         btnRefresh.setOnClickListener(new View.OnClickListener() {
@@ -74,24 +74,24 @@ public class MainActivity extends AppCompatActivity {
                 weatherDataRetrival.execute();
 
                 // Method 2 - Retrofit HTTP Client Connection
-//                Retrofit request = new Retrofit.Builder().baseUrl("http://api.openweathermap.org/").addConverterFactory(ScalarsConverterFactory.create()).build();
-//                ApiProvider api = request.create(ApiProvider.class);
-//                Call<String> call = api.getWeatherData();
-//                call.enqueue(new Callback<String>() {
-//                    @Override
-//                    public void onResponse(Call<String> call, Response<String> response) {
-//                        if(response.isSuccessful()) { // responseCode 200-300
-//                            parseResult(response.body());
-//                        } else {
-//
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<String> call, Throwable t) {
-//
-//                    }
-//                });
+                Retrofit request = new Retrofit.Builder().baseUrl("http://api.openweathermap.org/").addConverterFactory(ScalarsConverterFactory.create()).build();
+                ApiProvider api = request.create(ApiProvider.class);
+                Call<String> call = api.getWeatherData();
+                call.enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        if(response.isSuccessful()) { // responseCode 200-300
+                            parseResult(response.body());
+                        } else {
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+
+                    }
+                });
             }
         });
     }
@@ -397,7 +397,9 @@ public class MainActivity extends AppCompatActivity {
                 final JSONArray weatherJSONArray = weatherJSON.getJSONArray("weather");
                 if(weatherJSONArray.length()>0) {
                     int code = weatherJSONArray.getJSONObject(0).getInt("id");
-                    ivIcon.setImageResource(getIcon(code));
+                    Log.d("Data", "code: " + String.valueOf(code));
+
+                    getIcon(code);
                 }
 
             } catch (JSONException e) {
