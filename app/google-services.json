@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "764168240149-mms88qgas798kfk6p69q614l4gbn25i1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "my.com.codeplay.training.weatherapp",
+            "certificate_hash": "28dc1b278e6aea7a23ac0f43915278b0a9806955"
+          }
+        },
+        {
           "client_id": "764168240149-o0le402c2863ebl2ikfp0utu8ku0lso7.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "764168240149-o0le402c2863ebl2ikfp0utu8ku0lso7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
