@@ -7,10 +7,12 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvLocation, tvTemperature, tvHumidity, tvWindSpeed, tvCloudiness;
     private Button btnRefresh;
     private ImageView ivIcon;
-    private static final String WEATHER_SOURCE = "http://api.openweatherapp.org/data/2.5/weather?APPID=82445d6c96b99c3ffb78a4c0e17fca5&mode=json&id=1735161";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +52,11 @@ public class MainActivity extends AppCompatActivity {
         btnRefresh = (Button) findViewById(R.id.button_refresh);
         ivIcon = (ImageView) findViewById(R.id.icon);
 
-        // Set Background Colour To Light Blue
-        View root = this.getWindow().getDecorView();
-        root.setBackgroundColor(Color.BLUE);
+//        // Set Background Colour To Light Blue
+//        View root = this.getWindow().getDecorView();
+//        root.setBackgroundColor(Color.BLUE);
 
-//        // Testing
+        // Test Method 1 - Original Connection
         WeatherDataRetrival weatherDataRetrival = new WeatherDataRetrival();
         weatherDataRetrival.execute();
 
@@ -63,37 +64,45 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-//                WeatherDataRetrival weatherDataRetrival = new WeatherDataRetrival();
-//                weatherDataRetrival.execute();
+                Toast toast = new Toast(MainActivity.this);
+                toast.makeText(MainActivity.this, "Refresh Button is pressed!",
+                        Toast.LENGTH_SHORT).show();
 
-                Retrofit request = new Retrofit.Builder().baseUrl("http://api.openweather.org/").addConverterFactory(ScalarsConverterFactory.create()).build();
-                ApiProvider api = request.create(ApiProvider.class);
-                Call<String> call = api.getWeatherData();
-                call.enqueue(new Callback<String>() {
-                    @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
-                        if(response.isSuccessful()) { // responseCode 200-300
-                            parseResult(response.body());
-                        } else {
+                // Method 1 - Original Connection
+                WeatherDataRetrival weatherDataRetrival = new WeatherDataRetrival();
+                weatherDataRetrival.execute();
 
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<String> call, Throwable t) {
-
-                    }
-                });
+                // Method 2 - Retrofit HTTP Client Connection
+//                Retrofit request = new Retrofit.Builder().baseUrl("http://api.openweathermap.org/").addConverterFactory(ScalarsConverterFactory.create()).build();
+//                ApiProvider api = request.create(ApiProvider.class);
+//                Call<String> call = api.getWeatherData();
+//                call.enqueue(new Callback<String>() {
+//                    @Override
+//                    public void onResponse(Call<String> call, Response<String> response) {
+//                        if(response.isSuccessful()) { // responseCode 200-300
+//                            parseResult(response.body());
+//                        } else {
+//
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<String> call, Throwable t) {
+//
+//                    }
+//                });
             }
         });
     }
 
-    interface ApiProvider {
-        @GET("/data/2.5/weather?APPID=82445d6c96b99c3ffb78a4c0e17fca5&mode=json&id=1735161")
-        Call<String> getWeatherData();
-    }
+//    interface ApiProvider {
+//        @GET("/data/2.5/weather?APPID=82445b6c96b99bc3ffb78a4c0e17fca5&mode=json&id=1735161")
+//        Call<String> getWeatherData();
+//    }
 
     private class WeatherDataRetrival extends AsyncTask<Void, Void, String> {
+
+        private static final String WEATHER_SOURCE = "http://api.openweathermap.org/data/2.5/weather?APPID=82445b6c96b99bc3ffb78a4c0e17fca5&mode=json&id=1735161";
 
         @Override
         protected void onPreExecute() {
@@ -106,27 +115,35 @@ public class MainActivity extends AppCompatActivity {
             NetworkInfo networkInfo = ((ConnectivityManager) MainActivity.this.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
             if(networkInfo != null && networkInfo.isConnected()) {
                 // Network Connected
+                Log.d("Network", "Network Connected!");
+
                 URL url = null;
                 try {
                     url = new URL(WEATHER_SOURCE);
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 }
+
                 HttpURLConnection conn = null;
                 try {
                     conn = (HttpURLConnection) url.openConnection();
+                    Log.d("Network", "Connect Open!");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 try {
                     conn.setRequestMethod("GET");
+                    Log.d("Network", "Connect GET!");
                 } catch (ProtocolException e) {
                     e.printStackTrace();
                 }
+
                 conn.setConnectTimeout(15000);
                 conn.setReadTimeout(15000);
+
                 try {
                     conn.connect();
+                    Log.d("Network", "Connect Now!");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -134,15 +151,34 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     int responseCode = conn.getResponseCode();
 
+                    Log.d("Network", "Connect Get Response!");
+                    Log.d("Network", "Responsde Code: "+ String.valueOf(responseCode));
+
                     if(responseCode == HttpURLConnection.HTTP_OK) {
+
+                        Log.d("Network", "Connect HTTP OK!");
+
                         BufferedReader bufferedReader = new BufferedReader(
                                 new InputStreamReader(conn.getInputStream()));
-                        if (bufferedReader != null) {
+
+                        Log.d("Data", "bufferedReader: " + bufferedReader);
+
+                        if (bufferedReader == null) {
+                            Log.d("Data", "bufferedReader is null! " );
+                        }
+
+                        else if (bufferedReader != null) {
+
+                            Log.d("Data", "bufferedReader not null! " );
+
                             String readline;
                             StringBuffer stringBuffer = new StringBuffer();
-                            while ((readline=bufferedReader.readLine()) != null) {
+
+                            while ((readline = bufferedReader.readLine()) != null) {
                                 stringBuffer.append(readline);
                             }
+
+                            Log.d("Data", "readline not null! " );
 
                             return stringBuffer.toString();
                         }
@@ -153,6 +189,7 @@ public class MainActivity extends AppCompatActivity {
 
             } else {
                 // No Connection
+                Log.d("Network", "Network Not Connected!");
             }
 
             return null;
@@ -162,18 +199,32 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            if(result != null) {
+            if(result == null) {
+                Log.d("Data", "result is null!");
+            }
+
+            else if(result != null) {
+                Log.d("Data", "result not null!");
+
                 try {
                     final JSONObject weatherJSON = new JSONObject(result);
 
                     tvLocation.setText(weatherJSON.getString("name") + "," + weatherJSON.getJSONObject("sys").getString("country"));
+                    Log.d("Data", "tvLocation: " + weatherJSON.getString("name") + "," + weatherJSON.getJSONObject("sys").getString("country"));
+
                     tvWindSpeed.setText(String.valueOf(weatherJSON.getJSONObject("wind").getDouble("speed")) + " mps");
+                    Log.d("Data", "tvWindSpeed: " + String.valueOf(weatherJSON.getJSONObject("wind").getDouble("speed")) + " mps");
+
                     tvCloudiness.setText(String.valueOf(weatherJSON.getJSONObject("clouds").getInt("all")) + "%");
+                    Log.d("Data", "tvCloudiness: " + String.valueOf(weatherJSON.getJSONObject("clouds").getInt("all")) + "%");
 
                     final JSONObject mainJSON = weatherJSON.getJSONObject("main");
 
                     tvTemperature.setText(String.valueOf(mainJSON.getDouble("temp")));
+                    Log.d("Data", "tvTemperature: " + String.valueOf(mainJSON.getDouble("temp")));
+
                     tvHumidity.setText(String.valueOf(mainJSON.getInt("humidity")) + "%");
+                    Log.d("Data", "tvHumidity: " + String.valueOf(mainJSON.getInt("humidity")) + "%");
 
                     final JSONArray weatherJSONArray = weatherJSON.getJSONArray("weather");
                     if(weatherJSONArray.length()>0) {
@@ -202,6 +253,8 @@ public class MainActivity extends AppCompatActivity {
             case 230:
             case 231:
             case 232:
+                Log.d("Icon", "Icon Set Thunderstorm!");
+                ivIcon.setImageResource(R.mipmap.ic_thunderstorm_large);
                 return 1;
 
             // Drizzle
@@ -214,6 +267,8 @@ public class MainActivity extends AppCompatActivity {
             case 313:
             case 314:
             case 321:
+                Log.d("Icon", "Icon Set Drizzle!");
+                ivIcon.setImageResource(R.mipmap.ic_drizzle_large);
                 return 2;
 
             // Rain
@@ -227,6 +282,8 @@ public class MainActivity extends AppCompatActivity {
             case 521:
             case 522:
             case 531:
+                Log.d("Icon", "Icon Set Rain!");
+                ivIcon.setImageResource(R.mipmap.ic_rain_large);
                 return 3;
 
             // Snow
@@ -240,23 +297,33 @@ public class MainActivity extends AppCompatActivity {
             case 620:
             case 621:
             case 622:
+                Log.d("Icon", "Icon Set Snow!");
+                ivIcon.setImageResource(R.mipmap.ic_snow_large);
                 return 4;
 
             // Clear Sky
             case 800:
+                Log.d("Icon", "Icon Set Clear Sky!");
+                ivIcon.setImageResource(R.mipmap.ic_day_clear_large);
                 return 5;
 
             // Few Clouds
             case 801:
+                Log.d("Icon", "Icon Set Few Clouds!");
+                ivIcon.setImageResource(R.mipmap.ic_day_few_clouds_large);
                 return 6;
 
             // Scattered Clouds
             case 802:
+                Log.d("Icon", "Icon Set Drizzle!");
+                ivIcon.setImageResource(R.mipmap.ic_scattered_clouds_large);
                 return 7;
 
             // Broken and Overcast Clouds
             case 803:
             case 804:
+                Log.d("Icon", "Icon Set Broken and Overcast Clouds!");
+                ivIcon.setImageResource(R.mipmap.ic_broken_clouds_large);
                 return 8;
 
             // Fog
@@ -268,19 +335,27 @@ public class MainActivity extends AppCompatActivity {
             case 751:
             case 761:
             case 762:
+                Log.d("Icon", "Icon Set Fog!");
+                ivIcon.setImageResource(R.mipmap.ic_fog_large);
                 return 9;
 
             // Tornado
             case 781:
             case 900:
+                Log.d("Icon", "Icon Set Tornado!");
+                ivIcon.setImageResource(R.mipmap.ic_tornado_large);
                 return 10;
 
             // Windy
             case 905:
+                Log.d("Icon", "Icon Set Windy!");
+                ivIcon.setImageResource(R.mipmap.ic_windy_large);
                 return 11;
 
             // Hail
             case 906:
+                Log.d("Icon", "Icon Set Hail!");
+                ivIcon.setImageResource(R.mipmap.ic_hail_large);
                 return 12;
         }
 
@@ -289,30 +364,32 @@ public class MainActivity extends AppCompatActivity {
 
     private void parseResult (String result) {
 
-        if(result != null) {
-            try {
-                final JSONObject weatherJSON = new JSONObject(result);
+        tvLocation.setText(result);
 
-                tvLocation.setText(result);
-
-//                tvLocation.setText(weatherJSON.getString("name") + "," + weatherJSON.getJSONObject("sys").getString("country"));
-                tvWindSpeed.setText(String.valueOf(weatherJSON.getJSONObject("wind").getDouble("speed")) + " mps");
-                tvCloudiness.setText(String.valueOf(weatherJSON.getJSONObject("clouds").getInt("all")) + "%");
-
-                final JSONObject mainJSON = weatherJSON.getJSONObject("main");
-
-                tvTemperature.setText(String.valueOf(mainJSON.getDouble("temp")));
-                tvHumidity.setText(String.valueOf(mainJSON.getInt("humidity")) + "%");
-
-                final JSONArray weatherJSONArray = weatherJSON.getJSONArray("weather");
-                if(weatherJSONArray.length()>0) {
-                    int code = weatherJSONArray.getJSONObject(0).getInt("id");
-                    ivIcon.setImageResource(getIcon(code));
-                }
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
+//        if(result != null) {
+//            try {
+//                final JSONObject weatherJSON = new JSONObject(result);
+//
+//                tvLocation.setText(result);
+//
+////                tvLocation.setText(weatherJSON.getString("name") + "," + weatherJSON.getJSONObject("sys").getString("country"));
+//                tvWindSpeed.setText(String.valueOf(weatherJSON.getJSONObject("wind").getDouble("speed")) + " mps");
+//                tvCloudiness.setText(String.valueOf(weatherJSON.getJSONObject("clouds").getInt("all")) + "%");
+//
+//                final JSONObject mainJSON = weatherJSON.getJSONObject("main");
+//
+//                tvTemperature.setText(String.valueOf(mainJSON.getDouble("temp")));
+//                tvHumidity.setText(String.valueOf(mainJSON.getInt("humidity")) + "%");
+//
+//                final JSONArray weatherJSONArray = weatherJSON.getJSONArray("weather");
+//                if(weatherJSONArray.length()>0) {
+//                    int code = weatherJSONArray.getJSONObject(0).getInt("id");
+//                    ivIcon.setImageResource(getIcon(code));
+//                }
+//
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
 }
