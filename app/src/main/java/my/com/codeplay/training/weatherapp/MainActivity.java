@@ -227,11 +227,13 @@ public class MainActivity extends AppCompatActivity {
                     tvHumidity.setText(String.valueOf(mainJSON.getInt("humidity")) + "%");
                     Log.d("Data", "tvHumidity: " + String.valueOf(mainJSON.getInt("humidity")) + "%");
 
-//                    final JSONArray weatherJSONArray = weatherJSON.getJSONArray("weather");
-//                    if(weatherJSONArray.length()>0) {
-//                        int code = weatherJSONArray.getJSONObject(0).getInt("id");
-//                        ivIcon.setImageResource(getIcon(code));
-//                    }
+                    final JSONArray weatherJSONArray = weatherJSON.getJSONArray("weather");
+                    if(weatherJSONArray.length()>0) {
+                        int code = weatherJSONArray.getJSONObject(0).getInt("id");
+                        Log.d("Data", "code: " + String.valueOf(code));
+
+                        getIcon(code);
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
