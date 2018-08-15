@@ -7,7 +7,7 @@
 
 ## Getting Started
 
-This is a weather foreast mobile app that display city's temperature, humidity, wind speed, and cloudiness from [OpenWeatherMap](https://openweathermap.org/) .
+This is a weather foreast mobile app that display city's temperature, humidity, wind speed, and cloudiness from [OpenWeatherMap](https://openweathermap.org/), which developed during [InfoTrek Android Development Course](https://www.info-trek.com/details/Android-Development/4776).
 
 ## Deployment
 
