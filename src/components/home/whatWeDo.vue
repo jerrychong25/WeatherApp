@@ -3,9 +3,9 @@
         <v-layout wrap align-center justify-center row fill-height >
            <v-flex xs12 md3 lg3 class="pa-2">
                <p class="google-font" style="font-size:180%">What we do?</p>
-               <p class="google-font" style="font-size:110%">Google Developer Groups (GDGs) are for developers who are interested in Google's developer technology.</p>
+               <p class="google-font" style="font-size:110%">To develop a cost-effective, and integrated rehabilitation system which includes interactive element, and other intelligent features.</p>
 
-               <p class="google-font" style="font-size:110%">About different Google technologies</p>
+               <p class="google-font" style="font-size:110%">Technology stacks</p>
 
                 <span v-for="(item,i) in whatWeDoData" :key="i">
                     <v-tooltip bottom>
@@ -20,9 +20,6 @@
                 </span>
                 
                 <br><br>
-
-                <v-btn :href="chapterDetails.GDGProgramWebsite" outline target="_blank" round color="cyan" style="text-transform: capitalize;border-radius:5px;text-transform: capitalize;" flat  class="ml-0 google-font hidden-md-and-down" dark>Learn More</v-btn>
-
             </v-flex> 
             <v-flex xs12 md9 lg9 class="">
                 <v-layout row wrap>

@@ -1,20 +1,20 @@
 {
     "AboutSession":[
         {
-            "LinkName":"GDG Jalandhar",
+            "LinkName":"IEEE",
+            "Link":"https://www.ieee.org/"
+        },
+        {
+            "LinkName":"EPICS in IEEE",
+            "Link":"https://epics.ieee.org/"
+        },
+        {
+            "LinkName":"IEEE MySIGHT4Rehab",
             "Link":"/"
         },
         {
-            "LinkName":"Google Developers Groups",
-            "Link":"https://developers.google.com/programs/community/gdg/"
-        },
-        {
-            "LinkName":"WomenTechamkers",
-            "Link":"https://www.womentechmakers.com/"
-        },
-        {
-            "LinkName":"Become a Member",
-            "Link":"https://www.meetup.com/GDG-Jalandhar/"
+            "LinkName":"IEEE-EMBS Malaysia Chapter",
+            "Link":"https://www.embs.my/"
         }
     ],
     "ChapterResourcesSession":[
@@ -29,24 +29,6 @@
         {
             "LinkName" : "Media Kit",
             "Link" : "https://drive.google.com/drive/folders/16rHDaHbuS_YApMWgJHUxygpd-A5gCkLK"
-        }
-    ],
-    "DevConsole":[
-        {
-            "LinkName" : "Google API Console",
-            "Link" : "https://console.developers.google.com/"
-        },
-        {
-            "LinkName" : "GCP Console",
-            "Link" : "https://console.cloud.google.com/"
-        },
-        {
-            "LinkName" : "Google Play Console",
-            "Link" : "https://console.cloud.google.com/"
-        },
-        {
-            "LinkName" : "Firebase Console",
-            "Link" : "https://console.firebase.google.com/"
         }
     ],
     "FooterEndSession":[

@@ -1,34 +1,22 @@
 {
-    "ChapterName":"GDG Jalandhar",
-    "ChapterShortDescription":"Google Developers Group Jalandhar is an initiative to concentrate the efforts of many developers in and around Punjab to learn, share and get productive using the various Google products.",
-    "ChapterLongDec":"Google Developer Group Jalandhar is inspired by GTUG/GDG Family . We started our journey in Feb 2011. We try to engage student developers, fresh graduates and professionals through our hack events & meetups. The motive is to create a local ecosystem of programmers & hackers in and around Jalandhar. The technology awareness is main goal for first few years of the group.",
-    "ChapterMeetupLink":"https://www.meetup.com/GDG-Jalandhar",
-    "ChapterEmail":"gdgjalandhar@gmail.com",
+    "ChapterName":"IEEE MySIGHT4Rehab",
+    "ChapterShortDescription": "IEEE MySIGHT4Rehab is an initiative to build Low-Cost Upper Extremities Rehabilitation System with Interactive Feedback for Children with Movement Disorders.",
+    "ChapterLongDescription":"The project is backed by the IEEE-EMBS Malaysia Chapter, IEEE Engineering Projects in Community Service (EPICS in IEEE), and most importantly volunteers from both IEEE communities alongside with volunteers with same interest.",
+    "ChapterGoogleSitesLink":"https://sites.google.com/site/mysight4rehabepics/",
+    "ChapterEmail":"chongyz@utar.edu.my",
     "website":"https://gdgjalandhar.com",
-    "GDGProgramWebsite":"https://developers.google.com/programs/community/",
-    "ChapterHashTags":["GDGJalandhar","WTMJalandhar","GDG","WTM"],
+    "ChapterHashTags":["MySIGHT4Rehab","IEEE"],
     "socialLinks":[
         {
             "name" : "Facebook",
-            "link" : "https://www.facebook.com/GDGJalandhar/",
+            "link" : "https://www.facebook.com/groups/epicshigh/",
             "icon" : "fab fa-facebook"
         },
         {
-            "name" : "Google Plus",
-            "link" : "https://plus.google.com/u/0/+GdgjalandharIn/posts",
+            "name" : "Google Sites",
+            "link" : "https://sites.google.com/site/mysight4rehabepics/",
             "icon" : "fab fa-google-plus"
-        },
-        {
-            "name" : "Twitter",
-            "link" : "https://twitter.com/gdgjalandhar",
-            "icon" : "fab fa-twitter"
-        },
-        {
-            "name" : "Meetup",
-            "link" : "https://www.meetup.com/GDG-Jalandhar/",
-            "icon" : "fab fa-meetup"
         }
     ],
-    "wtmWebsite":"https://www.womentechmakers.com/",
     "aboutGDGProgram":"GDGs are local groups of developers who are specifically interested in Google products and APIs. Each local group is called a GDG chapter and can host a variety of technical activities for developers - from just a few people getting together to watch our latest videos, to large gatherings with demos and tech talks, to hackathons."
 }
