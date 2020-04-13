@@ -1,20 +1,20 @@
 {
-    "ChapterName":"IEEE MySIGHT4Rehab",
-    "ChapterShortDescription": "IEEE MySIGHT4Rehab is an initiative to build Low-Cost Upper Extremities Rehabilitation System with Interactive Feedback for Children with Movement Disorders.",
-    "ChapterLongDescription":"The project is backed by the IEEE-EMBS Malaysia Chapter, IEEE Engineering Projects in Community Service (EPICS in IEEE), and most importantly volunteers from both IEEE communities alongside with volunteers with same interest.",
-    "ChapterGoogleSitesLink":"https://sites.google.com/site/mysight4rehabepics/",
-    "ChapterEmail":"chongyz@utar.edu.my",
+    "ChapterName":"Website Name",
+    "ChapterShortDescription": "Short Description.",
+    "ChapterLongDescription":"Long Description.",
+    "ChapterGoogleSitesLink":"https://sites.google.com/",
+    "ChapterEmail":"info@google.com",
     "website":"https://gdgjalandhar.com",
-    "ChapterHashTags":["MySIGHT4Rehab","IEEE"],
+    "ChapterHashTags":["Website","Name"],
     "socialLinks":[
         {
             "name" : "Facebook",
-            "link" : "https://www.facebook.com/groups/epicshigh/",
+            "link" : "https://www.facebook.com/",
             "icon" : "fab fa-facebook"
         },
         {
             "name" : "Google Sites",
-            "link" : "https://sites.google.com/site/mysight4rehabepics/",
+            "link" : "https://sites.google.com/",
             "icon" : "fab fa-google-plus"
         }
     ],
